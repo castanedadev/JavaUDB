@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
  *
  * @author usuario
  */
-public class SumaEnteros {
+public class SumaEnterosComplementario1 {
 
     public static void main(String[] args) {
         String firstNumber = "", secondNumber = "";
@@ -45,7 +45,9 @@ public class SumaEnteros {
 
         sum = number1 + number2;
 
-        JOptionPane.showMessageDialog(null, "Sum is:" + sum, "Resultado", JOptionPane.PLAIN_MESSAGE);
+        JOptionPane.showMessageDialog(null, "La suma es: " + sum, 
+                "Resultado", 
+                JOptionPane.PLAIN_MESSAGE);
 
         System.exit(0);
     }

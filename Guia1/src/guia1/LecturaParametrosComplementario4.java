@@ -9,7 +9,7 @@ package guia1;
  * 
  * @author rickc
  */
-public class LecturaParametros {
+public class LecturaParametrosComplementario4 {
 
     public static void main(String[] args) {
         if (args.length > 0) {
