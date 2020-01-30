@@ -3,21 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package guia1;
+package sv.edu.udb.desarrollo;
+
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author usuario
  */
-public class Main {
+public class CuadroDialogo {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
-        System.out.println("Gpo 01 Lab");
-        System.out.print("Bienvenido a Netbeans");
+        JOptionPane.showMessageDialog(null, "Bienvenido a NetBeans IDE 7");
+        System.exit(0);
     }
-    
 }
