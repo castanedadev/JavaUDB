@@ -8,12 +8,10 @@ package sv.edu.udb.ejercicio3;
 import java.io.FileNotFoundException;
 import java.util.logging.Logger;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.xml.bind.JAXBException;
 import sv.edu.udb.ejercicio3.marshalling.Mediateca;
 import sv.edu.udb.utils.Utils;
-import sv.edu.udb.utils.Material;
 import sv.edu.udb.utils.OpcionMenu;
 
 /**
@@ -26,10 +24,6 @@ public class Menu {
 
     public static void main(String[] args) throws JAXBException, FileNotFoundException {
         Mediateca mediateca = new Mediateca();
-        List<Libro> libros = new ArrayList();
-        List<Revista> revistas = new ArrayList();
-        List<AudioCD> cds = new ArrayList();
-        List<DVD> dvds = new ArrayList();
 
         List<String> optionList = new ArrayList<>();
         optionList.add(OpcionMenu.AGREGAR.getDescripcion());
@@ -49,7 +43,6 @@ public class Menu {
         // Iterar indefinidamente hasta que usuario seleccione: SALIR
         do {
             String opcion = Utils.buildGUI(optionList, null);
-            //optionList.addAll(Arrays.asList(args));
             OpcionMenu opcionSeleccionada = OpcionMenu.CERRAR;
 
             for (OpcionMenu option : OpcionMenu.values()) {
@@ -60,60 +53,23 @@ public class Menu {
             }
 
             LOGGER.info(opcionSeleccionada.getDescripcion());
-            
+
             switch (opcionSeleccionada) {
                 case AGREGAR:
-                    String tipoMaterial = Utils.buildGUI(
-                            Arrays.asList(Material.values()).subList(0, 2),
-                            "Que tipo de material desea agregar?");
-
-                    LOGGER.info(tipoMaterial);
-
-                    if (tipoMaterial.equals(Material.ESCRITO.name())) {
-                        String materialEscrito = Utils.buildGUI(
-                                Arrays.asList(Material.values()).subList(2, 4),
-                                "Que tipo de material escrito desea agregar: ");
-
-                        LOGGER.info(materialEscrito);
-
-                        if (materialEscrito.equals(Material.LIBRO.name())) {
-                            libros.add(Utils.agregarMaterialEscrito(Material.LIBRO));
-                        } else {
-                            revistas.add(Utils.agregarMaterialEscrito(Material.REVISTA));
-                        }
-
-                    } else if (tipoMaterial.equals(Material.AUDIOVISUAL.name())) {
-                        String materialAudiovisual = Utils.buildGUI(
-                                Arrays.asList(Material.values()).subList(4, Material.values().length),
-                                "Que tipo de material audiovisual desea agregar: ");
-
-                        LOGGER.info(materialAudiovisual);
-
-                        if (materialAudiovisual.equals(Material.CD.name())) {
-                            cds.add(Utils.agregarMaterialAudioVisual(Material.CD));
-                        } else {
-                            dvds.add(Utils.agregarMaterialAudioVisual(Material.DVD));
-                        }
-                    }
-
-                    // Si la lista no esta vacia escribir material a xml
-                    mediateca.setRevistas(revistas);
-                    mediateca.setLibros(libros);
-                    mediateca.setAudioCDs(cds);
-                    mediateca.setDvds(dvds);
+                    Utils.agregar();
                     mediateca.setNombre("Pinacoteca UDB");
-
                     mediateca.persist();
-                    LOGGER.info("Mediateca actualizada con el nuevo material! ");
                     break;
                 case MODIFICAR:
                     Utils.modificarMaterial();
+                    mediateca.persist();
                     break;
                 case LISTAR:
                     LOGGER.info(mediateca.toString());
                     break;
                 case BORRAR:
                     Utils.borrarPorCodigo();
+                    mediateca.persist();
                     break;
                 case BUSCAR:
                     Utils.buscarPorCodigo();

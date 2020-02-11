@@ -28,7 +28,6 @@ import sv.edu.udb.ejercicio3.Libro;
 import sv.edu.udb.ejercicio3.MaterialAudiovisual;
 import sv.edu.udb.ejercicio3.MaterialEscrito;
 import sv.edu.udb.ejercicio3.Revista;
-import sv.edu.udb.utils.Material;
 
 /**
  *
@@ -102,7 +101,7 @@ public class Mediateca {
     }
 
     public void setLibros(List<Libro> libros) {
-        this.libros = libros;
+        Mediateca.libros = libros;
     }
 
     @XmlElementWrapper(name = "Revistas")
@@ -112,7 +111,7 @@ public class Mediateca {
     }
 
     public void setRevistas(List<Revista> revistas) {
-        this.revistas = revistas;
+        Mediateca.revistas = revistas;
     }
 
     @XmlElementWrapper(name = "AudioCDs")
@@ -122,7 +121,7 @@ public class Mediateca {
     }
 
     public void setAudioCDs(List<AudioCD> audioCDs) {
-        this.audioCDs = audioCDs;
+        Mediateca.audioCDs = audioCDs;
     }
 
     @XmlElementWrapper(name = "DVDs")
@@ -132,10 +131,10 @@ public class Mediateca {
     }
 
     public void setDvds(List<DVD> dvds) {
-        this.dvds = dvds;
+        Mediateca.dvds = dvds;
     }
 
-    public void agregarLibro(Libro libro) {
+    public static void agregarLibro(Libro libro) {
         try {
             if (libros == null) {
                 libros = new ArrayList<>();
@@ -146,7 +145,7 @@ public class Mediateca {
         }
     }
 
-    public void agregarRevista(Revista revista) {
+    public static void agregarRevista(Revista revista) {
         try {
             if (revista == null) {
                 revistas = new ArrayList<>();
@@ -157,7 +156,7 @@ public class Mediateca {
         }
     }
 
-    public void agregarAudioCD(AudioCD cd) {
+    public static void agregarAudioCD(AudioCD cd) {
         try {
             if (cd == null) {
                 audioCDs = new ArrayList<>();
@@ -168,7 +167,7 @@ public class Mediateca {
         }
     }
 
-    public void agregarDVD(DVD dvd) {
+    public static void agregarDVD(DVD dvd) {
         try {
             if (dvd == null) {
                 dvds = new ArrayList<>();

@@ -8,7 +8,6 @@ package sv.edu.udb.ejercicio3;
 import javax.swing.JOptionPane;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import static sv.edu.udb.ejercicio3.DVD.historicoUnidades;
 
 /**
  *

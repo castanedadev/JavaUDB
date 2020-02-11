@@ -59,10 +59,11 @@ public class Libro extends MaterialEscrito {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("\n       Libro [ autor=")
-                .append(this.autor)
-                .append(", codigo=")
+        sb.append("\n       Libro [")
+                .append(" codigo=")
                 .append(super.getCodigo())
+                .append(",  autor=")
+                .append(this.getAutor())
                 .append(", titulo=")
                 .append(super.getTitulo())
                 .append(", autor=")
@@ -70,11 +71,11 @@ public class Libro extends MaterialEscrito {
                 .append(", unidadesDisponibles=")
                 .append(super.getUnidadesDisponibles())
                 .append(", numeroPaginas=")
-                .append(this.numeroPaginas)
+                .append(this.getNumeroPaginas())
                 .append(", editorial=")
                 .append(super.getEditorial())
                 .append(", isbn=")
-                .append(this.isbn)
+                .append(this.getIsbn())
                 .append(", anoPublicacion=")
                 .append(super.getFechaPublicacion().get(Calendar.YEAR))
                 .append(" ]");

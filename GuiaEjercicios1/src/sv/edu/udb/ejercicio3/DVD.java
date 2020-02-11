@@ -40,27 +40,40 @@ public class DVD extends MaterialAudiovisual {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("\n       DVD [");
-        sb.append(" codigo=").append(super.getCodigo());
-        sb.append(", titulo=").append(super.getTitulo());
-        sb.append(", director=").append(this.getDirector());
-        sb.append(", duracion=").append(this.getDuracion());
-        sb.append(", genero=").append(this.getGenero());
-        sb.append(", unidadesDisponibles=").append(super.getUnidadesDisponibles());
-        sb.append(" ]");
+        sb.append("\n       DVD [")
+                .append(" codigo=")
+                .append(super.getCodigo())
+                .append(", titulo=")
+                .append(super.getTitulo())
+                .append(", director=")
+                .append(this.getDirector())
+                .append(", duracion=")
+                .append(this.getDuracion())
+                .append(", genero=")
+                .append(this.getGenero())
+                .append(", unidadesDisponibles=")
+                .append(super.getUnidadesDisponibles())
+                .append(" ]");
         return sb.toString();
     }
 
     @Override
     public void mostrarMaterial() {
         StringBuilder sb = new StringBuilder();
-        sb.append("=== DVD ===");
-        sb.append("\nCodigo : ").append(super.getCodigo());
-        sb.append("\nTitulo : ").append(super.getTitulo());
-        sb.append("\nDirector : ").append(this.getDirector());
-        sb.append("\nDuración : ").append(super.getDuracion());
-        sb.append("\nGénero : ").append(super.getGenero());
-        sb.append("\nUnidades Disponibles : ").append(super.getUnidadesDisponibles());
+        sb.append("=== DVD ===")
+                .append("\nCodigo : ")
+                .append(super.getCodigo())
+                .append("\nTitulo : ")
+                .append(super.getTitulo())
+                .append("\nDirector : ")
+                .append(this.getDirector())
+                .append("\nDuración : ")
+                .append(super.getDuracion())
+                .append(" minutos")
+                .append("\nGénero : ")
+                .append(super.getGenero())
+                .append("\nUnidades Disponibles : ")
+                .append(super.getUnidadesDisponibles());
 
         JOptionPane.showMessageDialog(null, sb.toString());
     }
