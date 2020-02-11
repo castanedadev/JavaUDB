@@ -394,14 +394,13 @@ public class Mediateca {
         Calendar myCalendar = Calendar.getInstance();
         myCalendar.set(ano, 0, 1); // Seteando unicamente el año
 
-        Libro nuevoLibro = new Libro();
-        nuevoLibro.setTitulo(titulo);
-        nuevoLibro.setAutor(autor);
-        nuevoLibro.setNumeroPaginas(Integer.parseInt(nPaginas));
-        nuevoLibro.setEditorial(editorial);
-        nuevoLibro.setIsbn(isbn);
-        nuevoLibro.setFechaPublicacion(myCalendar);
-        nuevoLibro.setUnidadesDisponibles(Integer.parseInt(uDiponibles));
+        book.setTitulo(titulo);
+        book.setAutor(autor);
+        book.setNumeroPaginas(Integer.parseInt(nPaginas));
+        book.setEditorial(editorial);
+        book.setIsbn(isbn);
+        book.setFechaPublicacion(myCalendar);
+        book.setUnidadesDisponibles(Integer.parseInt(uDiponibles));
 
         return true;
     }
@@ -511,10 +510,176 @@ public class Mediateca {
     }
 
     public static boolean modificarAudioCD(AudioCD cd) {
+        String titulo;
+        String artista;
+        String genero;
+        String duracion;
+        String nCanciones;
+        String uDisponibles;
+
+        do {
+            titulo = JOptionPane.showInputDialog(
+                    "Ingrese el titulo del CD: ", cd.getTitulo());
+        } while (null == titulo || titulo.equals(""));
+
+        do {
+            artista = JOptionPane.showInputDialog(
+                    "Ingrese el artista del CD: ", cd.getArtista());
+        } while (null == artista || artista.equals(""));
+
+        do {
+            genero = JOptionPane.showInputDialog(
+                    "Ingrese el género del material: ", cd.getGenero());
+        } while (null == genero || genero.equals(""));
+
+        int length = -1;
+        do {
+            duracion = JOptionPane.showInputDialog(
+                    "Ingrese la duración del material: ",
+                    cd.getDuracion());
+            try {
+                length = Integer.parseInt(duracion);
+
+                if (length <= 0) {
+                    JOptionPane.showMessageDialog(null,
+                            "Favor Ingresar Solo Números positivos! ",
+                            "Formato Numero",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null,
+                        "Favor Ingresar Solo Números. ",
+                        "Formato Numero",
+                        JOptionPane.WARNING_MESSAGE);
+            }
+        } while (length <= 0);
+
+        int songs = -1;
+        do {
+            nCanciones = JOptionPane.showInputDialog(
+                    "Ingrese el número de canciones: ",
+                    cd.getNumeroCanciones());
+            try {
+                songs = Integer.parseInt(nCanciones);
+
+                if (songs <= 0) {
+                    JOptionPane.showMessageDialog(null,
+                            "Favor Ingresar Solo Números positivos! ",
+                            "Formato Numero",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null,
+                        "Favor Ingresar Solo Números. ",
+                        "Formato Numero",
+                        JOptionPane.WARNING_MESSAGE);
+            }
+        } while (songs <= 0);
+
+        int units = -1;
+        do {
+            uDisponibles = JOptionPane.showInputDialog(
+                    "Ingrese el numero de unidades disponibles: ",
+                    cd.getUnidadesDisponibles());
+            try {
+                units = Integer.parseInt(uDisponibles);
+
+                if (units <= 0) {
+                    JOptionPane.showMessageDialog(null,
+                            "Favor Ingresar Solo Números positivos! ",
+                            "Formato Numero",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null,
+                        "Favor Ingresar Solo Números. ",
+                        "Formato Numero",
+                        JOptionPane.WARNING_MESSAGE);
+            }
+        } while (units <= 0);
+
+        cd.setTitulo(titulo);
+        cd.setArtista(artista);
+        cd.setGenero(genero);
+        cd.setDuracion(length);
+        cd.setNumeroCanciones(songs);
+        cd.setUnidadesDisponibles(units);
+
         return true;
     }
 
-    public static boolean modificadDVD(DVD dvd) {
+    public static boolean modificarDVD(DVD dvd) {
+        String genero;
+        String titulo;
+        String director;
+        String duracion;
+        String uDisponibles;
+
+        do {
+            titulo = JOptionPane.showInputDialog(
+                    "Ingrese el titulo del DVD: ", dvd.getTitulo());
+        } while (null == titulo || titulo.equals(""));
+
+        do {
+            director = JOptionPane.showInputDialog(
+                    "Ingrese el director del DVD: ", dvd.getDirector());
+        } while (null == director || director.equals(""));
+
+        do {
+            genero = JOptionPane.showInputDialog(
+                    "Ingrese el género del material: ", dvd.getGenero());
+        } while (null == genero || genero.equals(""));
+
+        int length = -1;
+        do {
+            duracion = JOptionPane.showInputDialog(
+                    "Ingrese la duración del material: ",
+                    dvd.getDuracion());
+            try {
+                length = Integer.parseInt(duracion);
+
+                if (length <= 0) {
+                    JOptionPane.showMessageDialog(null,
+                            "Favor Ingresar Solo Números positivos! ",
+                            "Formato Numero",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null,
+                        "Favor Ingresar Solo Números. ",
+                        "Formato Numero",
+                        JOptionPane.WARNING_MESSAGE);
+            }
+        } while (length <= 0);
+
+        int units = -1;
+        do {
+            uDisponibles = JOptionPane.showInputDialog(
+                    "Ingrese el numero de unidades disponibles: ",
+                    dvd.getUnidadesDisponibles());
+            try {
+                units = Integer.parseInt(uDisponibles);
+
+                if (units <= 0) {
+                    JOptionPane.showMessageDialog(null,
+                            "Favor Ingresar Solo Números positivos! ",
+                            "Formato Numero",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null,
+                        "Favor Ingresar Solo Números. ",
+                        "Formato Numero",
+                        JOptionPane.WARNING_MESSAGE);
+            }
+        } while (units <= 0);
+
+        dvd.setTitulo(titulo);
+        dvd.setDirector(director);
+        dvd.setDuracion(Integer.parseInt(duracion));
+        dvd.setGenero(genero);
+        dvd.setUnidadesDisponibles(Integer.parseInt(uDisponibles));
+
         return true;
     }
 }

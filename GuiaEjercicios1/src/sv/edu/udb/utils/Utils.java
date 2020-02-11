@@ -233,6 +233,11 @@ public class Utils {
         String tipoMaterial = buildGUI(Arrays.asList(Material.values()).subList(0, 2),
                 "Que tipo de material desea buscar: ");
 
+        // Regresar a menu principal si usuario presiona X
+        if (tipoMaterial.equals(OpcionMenu.CERRAR.name())) {
+            return;
+        }
+
         if (tipoMaterial.equals(Material.ESCRITO.name())) {
 
             String codigo = JOptionPane.showInputDialog(
@@ -288,7 +293,6 @@ public class Utils {
             titulo = JOptionPane.showInputDialog(
                     "Ingrese el titulo del "
                     + tipoMaterialAudiovisual.getDescripcion() + " : ");
-            LOGGER.warning(titulo);
         } while (null == titulo || titulo.equals(""));
 
         do {
@@ -404,10 +408,14 @@ public class Utils {
 
     public static void borrarPorCodigo() {
         String codigo = JOptionPane.showInputDialog("Ingrese el codigo del material a borrar: ");
+        // Regresar a menu principal si usuario presiona X
+        if (null == codigo) {
+            return;
+        }
         if (Mediateca.borrar(codigo)) {
             JOptionPane.showMessageDialog(null, "Material borrado con éxito!");
         } else {
-            JOptionPane.showMessageDialog(null, "Se encontro un problema borrando el material! Vuelva a intentar.");
+            JOptionPane.showMessageDialog(null, "El material no se pudo encontar! Vuelva a intentar.");
         }
     }
 
@@ -420,24 +428,13 @@ public class Utils {
 
         if (tipoMaterial.equals(Material.ESCRITO.name())) {
 
-            String materialEscrito = Utils.buildGUI(
-                    Arrays.asList(Material.values()).subList(2, 4),
-                    "Que tipo de material escrito desea modificar: ");
+            String codLibro;
+            do {
+                codLibro = JOptionPane.showInputDialog(
+                        "Ingrese el codigo del Material: ");
+            } while (null == codLibro || codLibro.equals(""));
 
-            // Regresar a menu principal si usuario presiona X
-            if (materialEscrito.equals(OpcionMenu.CERRAR.name())) {
-                return;
-            }
-
-            LOGGER.info(materialEscrito);
-
-            if (materialEscrito.equals(Material.LIBRO.name())) {
-                String codLibro;
-                do {
-                    codLibro = JOptionPane.showInputDialog(
-                            "Ingrese el codigo del Libro: ");
-                } while (null == codLibro || codLibro.equals(""));
-
+            try {
                 Libro libroEncontrado = Mediateca.buscarMaterialEscrito(codLibro);
 
                 if (null != libroEncontrado) {
@@ -445,14 +442,11 @@ public class Utils {
                             + "\nPor Favor Modifique los valores deseados.");
                     Mediateca.modificarLibro(libroEncontrado);
                 } else {
-                    JOptionPane.showMessageDialog(null, "Libro no encontrado! "
+                    JOptionPane.showMessageDialog(null, "Material no encontrado! "
                             + "\nIntente de nuevo.");
                 }
-
-            } else {
-                String codRevista = JOptionPane.showInputDialog(
-                        "Ingrese el codigo de la Revista: ");
-                Revista revistaEncontrada = Mediateca.buscarMaterialEscrito(codRevista);
+            } catch (ClassCastException e) {
+                Revista revistaEncontrada = Mediateca.buscarMaterialEscrito(codLibro);
                 if (null != revistaEncontrada) {
                     JOptionPane.showMessageDialog(null, "Revista Encontrada! "
                             + "\nPor Favor Modifique los valores deseados.");
@@ -464,17 +458,37 @@ public class Utils {
             }
 
         } else if (tipoMaterial.equals(Material.AUDIOVISUAL.name())) {
-            String materialAudiovisual = Utils.buildGUI(
-                    Arrays.asList(Material.values()).subList(4, Material.values().length),
-                    "Que tipo de material audiovisual desea modificar: ");
 
-            LOGGER.info(materialAudiovisual);
+            String codCD;
+            do {
+                codCD = JOptionPane.showInputDialog("Ingrese el codigo del material: ");
+                if (null == codCD) {
+                    return;
+                }
+            } while (codCD.equals(""));
 
-            if (materialAudiovisual.equals(Material.CD.name())) {
-                String codCD = JOptionPane.showInputDialog("Ingrese el codigo del CD: ");
-            } else {
-                String codDVD = JOptionPane.showInputDialog("Ingrese el codigo del DVD: ");
+            try {
+                AudioCD cdEncontrado = Mediateca.buscarMaterialAudioVisual(codCD);
+                if (null != cdEncontrado) {
+                    JOptionPane.showMessageDialog(null, "Audio CD Encontrado! "
+                            + "\nPor Favor Modifique los valores deseados.");
+                    Mediateca.modificarAudioCD(cdEncontrado);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Material no encontrado! "
+                            + "\nIntente de nuevo.");
+                }
+            } catch (java.lang.ClassCastException cce) {
+                DVD dvdEncontrado = Mediateca.buscarMaterialAudioVisual(codCD);
+                if (null != dvdEncontrado) {
+                    JOptionPane.showMessageDialog(null, "DVD Encontrada! "
+                            + "\nPor Favor Modifique los valores deseados.");
+                    Mediateca.modificarDVD(dvdEncontrado);
+                } else {
+                    JOptionPane.showMessageDialog(null, "DVD no encontrado! "
+                            + "\nIntente de nuevo.");
+                }
             }
+
         }
     }
 
@@ -507,6 +521,11 @@ public class Utils {
             String materialAudiovisual = Utils.buildGUI(
                     Arrays.asList(Material.values()).subList(4, Material.values().length),
                     "Que tipo de material audiovisual desea agregar: ");
+
+            // Regresar a menu principal si usuario presiona X
+            if (materialAudiovisual.equals(OpcionMenu.CERRAR.name())) {
+                return;
+            }
 
             LOGGER.info(materialAudiovisual);
 
