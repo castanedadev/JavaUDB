@@ -9,8 +9,12 @@ package sv.edu.udb.ejercicio3;
  *
  * @author rickc
  */
-public class MaterialAudiovisual extends Material{
+public abstract class MaterialAudiovisual extends Material {
 
+    public abstract String generarCodigo();
+
+    public abstract void mostrarMaterial();
+    
     private String genero;
     private int duracion;
 

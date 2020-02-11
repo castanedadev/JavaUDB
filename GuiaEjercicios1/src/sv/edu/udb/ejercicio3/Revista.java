@@ -6,6 +6,7 @@
 package sv.edu.udb.ejercicio3;
 
 import java.util.Calendar;
+import javax.swing.JOptionPane;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -21,8 +22,7 @@ public class Revista extends MaterialEscrito {
 
     public Revista() {
         historicoUnidades++;
-        String padded = String.format("%05d", historicoUnidades);
-        super.setCodigo("REV" + padded);
+        super.setCodigo(generarCodigo());
     }
 
     @XmlElement
@@ -37,20 +37,56 @@ public class Revista extends MaterialEscrito {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("\n       Revista [");
-        sb.append(" codigo=").append(super.getCodigo());
-        sb.append(", titulo=").append(super.getTitulo());
-        sb.append(", editorial=").append(super.getEditorial());
-        sb.append(", periodicidad=").append(this.periodicidad);
-        sb.append(", anoPublicacion=");
-        sb.append(super.getFechaPublicacion().get(Calendar.MONTH) + 1);
-        sb.append("/");
-        sb.append(super.getFechaPublicacion().get(Calendar.DATE));
-        sb.append("/");
-        sb.append(super.getFechaPublicacion().get(Calendar.YEAR));
-        sb.append(", unidadesDisponibles=").append(super.getUnidadesDisponibles());
-        sb.append(" ]");
+        sb.append("\n       Revista [")
+                .append(" codigo=")
+                .append(super.getCodigo())
+                .append(", titulo=")
+                .append(super.getTitulo())
+                .append(", editorial=")
+                .append(super.getEditorial())
+                .append(", periodicidad=")
+                .append(this.getPeriodicidad())
+                .append(", anoPublicacion=")
+                .append(super.getFechaPublicacion().get(Calendar.MONTH) + 1)
+                .append("/")
+                .append(super.getFechaPublicacion().get(Calendar.DATE))
+                .append("/")
+                .append(super.getFechaPublicacion().get(Calendar.YEAR))
+                .append(", unidadesDisponibles=")
+                .append(super.getUnidadesDisponibles())
+                .append(" ]");
         return sb.toString();
+    }
+
+    @Override
+    public final String generarCodigo() {
+        String padded = String.format("%05d", historicoUnidades);
+        return ("REV" + padded);
+    }
+
+    @Override
+    public void mostrarMaterial() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("=== Revista ===")
+                .append("\nCodigo : ")
+                .append(super.getCodigo())
+                .append("\nTitulo : ")
+                .append(super.getTitulo())
+                .append("\nEditorial : ")
+                .append(super.getEditorial())
+                .append("\nPeriodicidad : ")
+                .append(this.getPeriodicidad())
+                .append("\n Fecha de Publicacion : ")
+                .append(super.getFechaPublicacion().get(Calendar.MONTH) + 1)
+                .append("/")
+                .append(super.getFechaPublicacion().get(Calendar.DATE))
+                .append("/")
+                .append(super.getFechaPublicacion().get(Calendar.YEAR))
+                .append("\nUnidades Disponibles : ")
+                .append(super.getUnidadesDisponibles())
+                .append("");
+
+        JOptionPane.showMessageDialog(null, sb.toString());
     }
 
 }

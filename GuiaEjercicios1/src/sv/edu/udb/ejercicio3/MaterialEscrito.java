@@ -12,10 +12,13 @@ import javax.xml.bind.annotation.XmlElement;
  *
  * @author rickc
  */
-public class MaterialEscrito extends Material {
+public abstract class MaterialEscrito extends Material {
 
     private String editorial;
     private Calendar fechaPublicacion;
+
+    abstract String generarCodigo();
+    abstract void mostrarMaterial();
 
     @XmlElement
     public String getEditorial() {

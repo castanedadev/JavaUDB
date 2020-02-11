@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Mediateca nombre="Pinacoteca UDB" ultimaRevista="2" ultimoCD="3" ultimoDVD="2" ultimoLibro="2">
+    <AudioCDs>
+        <AudioCD>
+            <codigo>CDA00001</codigo>
+            <titulo>HIStory: Past, Present and Future, Book I</titulo>
+            <unidadesDisponibles>3</unidadesDisponibles>
+            <duracion>149</duracion>
+            <genero>Pop music/Soul music</genero>
+            <artista>Michael Jackson</artista>
+            <numeroCanciones>30</numeroCanciones>
+        </AudioCD>
+        <AudioCD>
+            <codigo>CDA00002</codigo>
+            <titulo>A Different Kind of Truth</titulo>
+            <unidadesDisponibles>5</unidadesDisponibles>
+            <duracion>51</duracion>
+            <genero>Hard Rock</genero>
+            <artista>Van Halen</artista>
+            <numeroCanciones>17</numeroCanciones>
+        </AudioCD>
+        <AudioCD>
+            <codigo>CDA00003</codigo>
+            <titulo>A Kind of Magic</titulo>
+            <unidadesDisponibles>25</unidadesDisponibles>
+            <duracion>54</duracion>
+            <genero>Progressive Rock</genero>
+            <artista>Queen</artista>
+            <numeroCanciones>9</numeroCanciones>
+        </AudioCD>
+    </AudioCDs>
+    <DVDs>
+        <DVD>
+            <codigo>DVD00001</codigo>
+            <titulo>Scarface</titulo>
+            <unidadesDisponibles>2</unidadesDisponibles>
+            <duracion>170</duracion>
+            <genero>Epic</genero>
+            <director>Brian De Palma</director>
+        </DVD>
+         <DVD>
+            <codigo>DVD00002</codigo>
+            <titulo>Lord of the Flies</titulo>
+            <unidadesDisponibles>1</unidadesDisponibles>
+            <duracion>90</duracion>
+            <genero>War</genero>
+            <director>Harry Hook</director>
+        </DVD>
+    </DVDs>
+    <Libros>
+        <Libro>
+            <codigo>LIB00001</codigo>
+            <titulo>Holy Bible</titulo>
+            <unidadesDisponibles>50</unidadesDisponibles>
+            <editorial>Any in the world!</editorial>
+            <fechaPublicacion>2001-01-01T15:47:07.892-06:00</fechaPublicacion>
+            <autor>Jesus Christ</autor>
+            <isbn>GFA-523-TXi</isbn>
+            <numeroPaginas>1500</numeroPaginas>
+        </Libro>
+        <Libro>
+            <codigo>LIB00002</codigo>
+            <titulo>Holy Bible</titulo>
+            <unidadesDisponibles>0</unidadesDisponibles>
+            <editorial>Any in the world!</editorial>
+            <fechaPublicacion>2001-01-01T15:47:07.892-06:00</fechaPublicacion>
+            <autor>Jesus Christ</autor>
+            <isbn>GFA-523-TXi</isbn>
+            <numeroPaginas>1500</numeroPaginas>
+        </Libro>
+    </Libros>
+    <Revistas>
+        <Revista>
+            <codigo>REV00001</codigo>
+            <titulo>Mag 1</titulo>
+            <unidadesDisponibles>5</unidadesDisponibles>
+            <editorial>ESE</editorial>
+            <fechaPublicacion>2001-01-01T15:47:07.892-06:00</fechaPublicacion>
+            <periodicidad>12</periodicidad>
+        </Revista>
+        <Revista>
+            <codigo>REV00002</codigo>
+            <titulo>Mag 25</titulo>
+            <unidadesDisponibles>6</unidadesDisponibles>
+            <editorial>ESE v2</editorial>
+            <fechaPublicacion>2001-01-01T15:47:07.892-06:00</fechaPublicacion>
+            <periodicidad>6</periodicidad>
+        </Revista>
+    </Revistas>
+</Mediateca>

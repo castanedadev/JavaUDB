@@ -10,8 +10,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -23,7 +25,10 @@ import javax.xml.bind.annotation.XmlRootElement;
 import sv.edu.udb.ejercicio3.AudioCD;
 import sv.edu.udb.ejercicio3.DVD;
 import sv.edu.udb.ejercicio3.Libro;
+import sv.edu.udb.ejercicio3.MaterialAudiovisual;
+import sv.edu.udb.ejercicio3.MaterialEscrito;
 import sv.edu.udb.ejercicio3.Revista;
+import sv.edu.udb.utils.Material;
 
 /**
  *
@@ -38,10 +43,12 @@ public class Mediateca {
     private String ultimoCD;
     private String ultimoDVD;
 
-    private List<Libro> libros = new ArrayList();
-    private List<Revista> revistas = new ArrayList();
-    private List<AudioCD> audioCDs = new ArrayList();
-    private List<DVD> dvds = new ArrayList();
+    private static List<Libro> libros = new ArrayList();
+    private static List<Revista> revistas = new ArrayList();
+    private static List<AudioCD> audioCDs = new ArrayList();
+    private static List<DVD> dvds = new ArrayList();
+
+    private static final Logger LOGGER = Logger.getLogger(Mediateca.class.toGenericString());
 
     @XmlAttribute(name = "nombre")
     public String getNombre() {
@@ -192,10 +199,45 @@ public class Mediateca {
         this.ultimaRevista = mediateca.ultimaRevista;
         this.ultimoCD = mediateca.ultimoCD;
         this.ultimoDVD = mediateca.ultimoDVD;
-        this.libros = mediateca.getLibros();
-        this.revistas = mediateca.getRevistas();
-        this.audioCDs = mediateca.getAudioCDs();
-        this.dvds = mediateca.getDvds();
+
+        Mediateca.libros = mediateca.getLibros();
+        Mediateca.revistas = mediateca.getRevistas();
+        Mediateca.audioCDs = mediateca.getAudioCDs();
+        Mediateca.dvds = mediateca.getDvds();
+    }
+
+    public static <T extends MaterialEscrito> T buscarMaterialEscrito(String codigo) {
+        for (Libro libro : libros) {
+            if (libro.getCodigo().equals(codigo)) {
+                LOGGER.info("Libro encontrado");
+                return (T) libro;
+            }
+        }
+        for (Revista revista : revistas) {
+            if (revista.getCodigo().equals(codigo)) {
+                LOGGER.info("Revista encontrado");
+                return (T) revista;
+            }
+        }
+
+        return null;
+    }
+
+    public static <T extends MaterialAudiovisual> T buscarMaterialAudioVisual(String codigo) {
+        for (AudioCD cd : audioCDs) {
+            if (cd.getCodigo().equals(codigo)) {
+                LOGGER.info("CD encontrado");
+                return (T) cd;
+            }
+        }
+        for (DVD dvd : dvds) {
+            if (dvd.getCodigo().equals(codigo)) {
+                LOGGER.info("DVD encontrado");
+                return (T) dvd;
+            }
+        }
+
+        return null;
     }
 
     @Override
@@ -227,4 +269,100 @@ public class Mediateca {
         return sb.toString();
     }
 
+    public static boolean borrar(String codigo) {
+        for (Libro libro : libros) {
+            if (libro.getCodigo().equals(codigo)) {
+                return libros.remove(libro);
+            }
+        }
+        for (Revista revista : revistas) {
+            if (revista.getCodigo().equals(codigo)) {
+                return revistas.remove(revista);
+            }
+        }
+
+        for (AudioCD audioCD : audioCDs) {
+            if (audioCD.getCodigo().equals(codigo)) {
+                return audioCDs.remove(audioCD);
+            }
+        }
+
+        for (DVD dvd : dvds) {
+            if (dvd.getCodigo().equals(codigo)) {
+                return dvds.remove(dvd);
+            }
+        }
+
+        return false;
+    }
+
+    public static boolean modificarLibro(Libro book) {
+
+        //Propiedades comunes en material escritos
+        String titulo = JOptionPane.showInputDialog(
+                "Ingrese el titulo del libro: ", book.getTitulo());
+
+        String autor = JOptionPane.showInputDialog(
+                "Ingrese el autor del libro: ", book.getAutor());
+
+        String nPaginas = JOptionPane.showInputDialog(
+                "Ingrese el número de páginas: ", book.getNumeroPaginas());
+        String editorial = JOptionPane.showInputDialog(
+                "Ingrese la editorial del libro: ", book.getEditorial());
+        String year = JOptionPane.showInputDialog(
+                "Ingrese el año de publicacion: ",
+                book.getFechaPublicacion().get(Calendar.YEAR));
+        String uDiponibles = JOptionPane.showInputDialog(
+                "Ingrese el numero de unidades disponibles: ",
+                book.getUnidadesDisponibles());
+        String isbn = JOptionPane.showInputDialog("Ingrese el codigo ISBN: ",
+                book.getIsbn());
+
+        //myCalendar.set(Integer.parseInt(year), 0, 1);
+        Libro nuevoLibro = new Libro();
+        nuevoLibro.setTitulo(titulo);
+        nuevoLibro.setAutor(autor);
+        nuevoLibro.setNumeroPaginas(Integer.parseInt(nPaginas));
+        nuevoLibro.setEditorial(editorial);
+        nuevoLibro.setIsbn(isbn);
+        //nuevoLibro.setFechaPublicacion(myCalendar);
+        nuevoLibro.setUnidadesDisponibles(Integer.parseInt(uDiponibles));
+
+        return true;
+    }
+
+    public static boolean modificarRevista(Revista revista) {
+        //Propiedades comunes en material escritos
+        String titulo = JOptionPane.showInputDialog(
+                "Ingrese el titulo del libro: ", revista.getTitulo());
+
+        String editorial = JOptionPane.showInputDialog(
+                "Ingrese la editorial del libro: ", revista.getEditorial());
+
+        String periodicidad = JOptionPane.showInputDialog(
+                "Ingrese la periodicidad de la revista: ", revista.getPeriodicidad());
+
+        String year = JOptionPane.showInputDialog(
+                "Ingrese la fecha de publicacion: ",
+                revista.getFechaPublicacion().get(Calendar.YEAR));
+        String uDiponibles = JOptionPane.showInputDialog(
+                "Ingrese el numero de unidades disponibles: ");
+
+        //myCalendar.set(Integer.parseInt(year), 0, 1);
+        revista.setTitulo(titulo);
+        revista.setEditorial(editorial);
+        revista.setPeriodicidad(Integer.parseInt(periodicidad));
+        //nuevoLibro.setFechaPublicacion(myCalendar);
+        revista.setUnidadesDisponibles(Integer.parseInt(uDiponibles));
+
+        return true;
+    }
+
+    public static boolean modificarAudioCD(AudioCD cd) {
+        return true;
+    }
+
+    public static boolean modificadDVD(DVD dvd) {
+        return true;
+    }
 }

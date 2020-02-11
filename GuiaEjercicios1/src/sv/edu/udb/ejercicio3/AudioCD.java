@@ -5,8 +5,10 @@
  */
 package sv.edu.udb.ejercicio3;
 
+import javax.swing.JOptionPane;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import static sv.edu.udb.ejercicio3.DVD.historicoUnidades;
 
 /**
  *
@@ -21,8 +23,7 @@ public class AudioCD extends MaterialAudiovisual {
 
     public AudioCD() {
         historicoUnidades++;
-        String padded = String.format("%05d", historicoUnidades);
-        super.setCodigo("CDA" + padded);
+        super.setCodigo(generarCodigo());
     }
 
     @XmlElement
@@ -47,15 +48,51 @@ public class AudioCD extends MaterialAudiovisual {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("\n       AudioCD [");
-        sb.append(" titulo=").append(super.getTitulo());
-        sb.append(", artista=").append(artista);
-        sb.append(", genero=").append(super.getGenero());
-        sb.append(", duracion=").append(super.getDuracion());
-        sb.append(", numeroCanciones=").append(numeroCanciones);
-        sb.append(", unidadesDisponibles=").append(super.getUnidadesDisponibles());
-        sb.append(" ]");
+        sb.append("\n       AudioCD [")
+                .append(" Codigo : ")
+                .append(super.getCodigo())
+                .append(", titulo=")
+                .append(super.getTitulo())
+                .append(", artista=")
+                .append(this.getArtista())
+                .append(", genero=")
+                .append(super.getGenero())
+                .append(", duracion=")
+                .append(super.getDuracion())
+                .append(", numeroCanciones=")
+                .append(this.getNumeroCanciones())
+                .append(", unidadesDisponibles=")
+                .append(super.getUnidadesDisponibles())
+                .append(" ]");
         return sb.toString();
+    }
+
+    @Override
+    public final String generarCodigo() {        
+        String padded = String.format("%05d", historicoUnidades);
+        return ("CDA" + padded);
+    }
+
+    @Override
+    public void mostrarMaterial() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("=== AudioCD ===")
+                .append("\nCodigo : ")
+                .append(super.getCodigo())
+                .append("\nTitulo : ")
+                .append(super.getTitulo())
+                .append("\nArtista : ")
+                .append(artista)
+                .append("\nGénero : ")
+                .append(super.getGenero())
+                .append("\nDuración : ")
+                .append(super.getDuracion())
+                .append("\nNúmero de Canciones : ")
+                .append(numeroCanciones)
+                .append("\nUnidades Disponibles : ")
+                .append(super.getUnidadesDisponibles());
+
+        JOptionPane.showMessageDialog(null, sb.toString());
     }
 
 }

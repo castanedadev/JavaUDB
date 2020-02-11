@@ -6,6 +6,7 @@
 package sv.edu.udb.ejercicio3;
 
 import java.util.Calendar;
+import javax.swing.JOptionPane;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -24,8 +25,7 @@ public class Libro extends MaterialEscrito {
 
     public Libro() {
         historicoUnidades++;
-        String padded = String.format("%05d", historicoUnidades);
-        super.setCodigo("LIB" + padded);
+        super.setCodigo(generarCodigo());
     }
 
     @XmlElement
@@ -59,15 +59,56 @@ public class Libro extends MaterialEscrito {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("\n       Libro [ autor=").append(this.autor);
-        sb.append(", codigo=").append(super.getCodigo());
-        sb.append(", titulo=").append(super.getTitulo());
-        sb.append(", unidadesDisponibles=").append(super.getUnidadesDisponibles());
-        sb.append(", numeroPaginas=").append(this.numeroPaginas);
-        sb.append(", editorial=").append(super.getEditorial());
-        sb.append(", isbn=").append(this.isbn);
-        sb.append(", anoPublicacion=").append(super.getFechaPublicacion().get(Calendar.YEAR));
-        sb.append(" ]");
+        sb.append("\n       Libro [ autor=")
+                .append(this.autor)
+                .append(", codigo=")
+                .append(super.getCodigo())
+                .append(", titulo=")
+                .append(super.getTitulo())
+                .append(", autor=")
+                .append(this.getAutor())
+                .append(", unidadesDisponibles=")
+                .append(super.getUnidadesDisponibles())
+                .append(", numeroPaginas=")
+                .append(this.numeroPaginas)
+                .append(", editorial=")
+                .append(super.getEditorial())
+                .append(", isbn=")
+                .append(this.isbn)
+                .append(", anoPublicacion=")
+                .append(super.getFechaPublicacion().get(Calendar.YEAR))
+                .append(" ]");
         return sb.toString();
+    }
+
+    @Override
+    public final String generarCodigo() {
+        String padded = String.format("%05d", historicoUnidades);
+        return ("LIB" + padded);
+    }
+
+    @Override
+    public void mostrarMaterial() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("=== Libro ===")
+                .append("\nCodigo : ")
+                .append(super.getCodigo())
+                .append("\nTitulo : ")
+                .append(super.getTitulo())
+                .append("\nAutor : ")
+                .append(this.getAutor())
+                .append("\nNúmero de Páginas : ")
+                .append(this.getNumeroPaginas())
+                .append("\nEditorial : ")
+                .append(super.getEditorial())
+                .append("\nISBN: ")
+                .append(this.getIsbn())
+                .append("\nAño de Publicación : ")
+                .append(super.getFechaPublicacion().get(Calendar.YEAR))
+                .append("\nUnidades Disponibles : ")
+                .append(super.getUnidadesDisponibles())
+                .append("");
+
+        JOptionPane.showMessageDialog(null, sb.toString());
     }
 }
