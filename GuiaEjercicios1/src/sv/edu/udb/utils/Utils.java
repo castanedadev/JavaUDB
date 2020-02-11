@@ -5,10 +5,12 @@
  */
 package sv.edu.udb.utils;
 
+import java.awt.HeadlessException;
 import java.util.logging.Logger;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.regex.Pattern;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -47,7 +49,7 @@ public class Utils {
     }
 
     public static <T extends MaterialEscrito> T agregarMaterialEscrito(Material tipoMaterialEscrito) {
-        String year;
+        String year = "";
         String isbn;
         String autor;
         String titulo;
@@ -72,13 +74,48 @@ public class Utils {
         } while (null == editorial || editorial.equals(""));
 
         // Validar Año/Fecha Públicacion
+        boolean fechaCorrecta = false;
         do {
-            year = JOptionPane.showInputDialog("Ingrese "
-                    + (tipoMaterialEscrito.equals(Material.LIBRO)
-                    ? "el año"
-                    : "la fecha (en formato mm/yy/aaaa)")
-                    + " de publicacion: ");
-        } while (null == year || year.equals(""));
+
+            try {
+                String regexAno = "(?:[0-9][0-9])?[0-9][0-9]$";
+                String regexFecha = "^[0-3]?[0-9]/[0-3]?[0-9]/(?:[0-9][0-9])?[0-9][0-9]$";
+                Pattern pattern = Pattern.compile(regexAno);
+
+                year = JOptionPane.showInputDialog("Ingrese "
+                        + (tipoMaterialEscrito.equals(Material.LIBRO)
+                        ? "el año"
+                        : "la fecha (en formato dd/mm/aaaa)")
+                        + " de publicacion: ");
+
+                if (tipoMaterialEscrito.equals(Material.LIBRO)) {
+                    if (!pattern.matcher(year).matches()) {
+                        JOptionPane.showMessageDialog(null,
+                                "Ingresar el año de publicación correctamente ",
+                                "Formato Fecha",
+                                JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        fechaCorrecta = true;
+                    }
+                } else {
+                    pattern = Pattern.compile(regexFecha);
+                    if (!pattern.matcher(year).matches()) {
+                        JOptionPane.showMessageDialog(null,
+                                "Ingresar fecha de publicación en formato dia/mes/año ",
+                                "Formato Fecha",
+                                JOptionPane.WARNING_MESSAGE);
+                    } else {
+                        fechaCorrecta = true;
+                    }
+                }
+
+            } catch (HeadlessException e) {
+                JOptionPane.showMessageDialog(null,
+                        "Formato incorrecto, intente de nuevo! ",
+                        "Formato Fecha",
+                        JOptionPane.WARNING_MESSAGE);
+            }
+        } while (!fechaCorrecta);
 
         // Validar Unidades Disponibles
         int unidades = -1;
@@ -102,6 +139,8 @@ public class Utils {
             }
         } while (unidades <= 0);
 
+        String[] dateChunks = year.split("/");
+
         if (tipoMaterialEscrito.equals(Material.LIBRO)) {
             //Validar autor
             do {
@@ -114,7 +153,7 @@ public class Utils {
 
                 nPaginas = JOptionPane.showInputDialog("Ingrese el número de páginas: ");
                 try {
-                    unidades = Integer.parseInt(nPaginas);
+                    paginas = Integer.parseInt(nPaginas);
 
                     if (paginas <= 0) {
                         JOptionPane.showMessageDialog(null,
@@ -135,7 +174,7 @@ public class Utils {
                 isbn = JOptionPane.showInputDialog("Ingrese el codigo ISBN: ");
             } while (null == isbn || isbn.equals(""));
 
-            myCalendar.set(Integer.parseInt(year), 0, 1);
+            myCalendar.set(Integer.parseInt(dateChunks[0]), 0, 1);
 
             Libro nuevoLibro = new Libro();
             nuevoLibro.setTitulo(titulo);
@@ -150,10 +189,34 @@ public class Utils {
             return (T) nuevoLibro;
 
         } else {
-            periodicidad = JOptionPane.showInputDialog(
-                    "Ingrese la periodicidad de la revista: ");
 
-            myCalendar.set(Integer.parseInt(year), 2, 10);
+            // Validar Periodicidad
+            int meses = -1;
+            do {
+
+                periodicidad = JOptionPane.showInputDialog(
+                        "Ingrese la periodicidad de la revista (número de meses): ");
+
+                try {
+                    meses = Integer.parseInt(periodicidad);
+
+                    if (meses <= 0) {
+                        JOptionPane.showMessageDialog(null,
+                                "Favor Ingresar Solo Números positivos! ",
+                                "Formato Numero",
+                                JOptionPane.WARNING_MESSAGE);
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null,
+                            "Favor Ingresar Solo Números. ",
+                            "Formato Numero",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+            } while (meses <= 0);
+
+            myCalendar.set(Integer.parseInt(dateChunks[2]),
+                    (Integer.parseInt(dateChunks[1]) - 1),
+                    Integer.parseInt(dateChunks[0]));
 
             Revista nuevaRevista = new Revista();
             nuevaRevista.setTitulo(titulo);
@@ -185,6 +248,8 @@ public class Utils {
                 Revista revistaEncontrada = Mediateca.buscarMaterialEscrito(codigo);
                 if (revistaEncontrada == null) {
                     JOptionPane.showMessageDialog(null, "Revista no encontrado!");
+                } else {
+                    revistaEncontrada.mostrarMaterial();
                 }
             }
         } else {
@@ -213,22 +278,100 @@ public class Utils {
 
     public static <T extends MaterialAudiovisual> T agregarMaterialAudioVisual(Material tipoMaterialAudiovisual) {
 
-        //Propiedades comunes en material escritos
-        String titulo = JOptionPane.showInputDialog(
-                "Ingrese el titulo del "
-                + tipoMaterialAudiovisual.getDescripcion() + " : ");
-        String genero = JOptionPane.showInputDialog(
-                "Ingrese el genero del material: ");
-        String duracion = JOptionPane.showInputDialog(
-                "Ingrese la duracion del material (en minutos): ");
-        String uDiponibles = JOptionPane.showInputDialog(
-                "Ingrese el numero de unidades disponibles: ");
+        String titulo;
+        String genero;
+        String duracion;
+        String uDisponibles;
+
+        //Validar Titulo 
+        do {
+            titulo = JOptionPane.showInputDialog(
+                    "Ingrese el titulo del "
+                    + tipoMaterialAudiovisual.getDescripcion() + " : ");
+            LOGGER.warning(titulo);
+        } while (null == titulo || titulo.equals(""));
+
+        do {
+            genero = JOptionPane.showInputDialog(
+                    "Ingrese el genero del material: ");
+        } while (null == genero || genero.equals(""));
+
+        // Validar duracion
+        int length = -1;
+        do {
+            duracion = JOptionPane.showInputDialog(
+                    "Ingrese la duracion del material (en minutos): ");
+            try {
+                length = Integer.parseInt(duracion);
+
+                if (length <= 0) {
+                    JOptionPane.showMessageDialog(null,
+                            "Favor Ingresar Solo Números positivos! ",
+                            "Formato Numero",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null,
+                        "Favor Ingresar Solo Números. ",
+                        "Formato Numero",
+                        JOptionPane.WARNING_MESSAGE);
+            }
+        } while (length <= 0);
+
+        // Unidades disponibles
+        int units = -1;
+        do {
+            uDisponibles = JOptionPane.showInputDialog(
+                    "Ingrese el numero de unidades disponibles: ");
+            try {
+                units = Integer.parseInt(uDisponibles);
+
+                if (units <= 0) {
+                    JOptionPane.showMessageDialog(null,
+                            "Favor Ingresar Solo Números positivos! ",
+                            "Formato Numero",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(null,
+                        "Favor Ingresar Solo Números. ",
+                        "Formato Numero",
+                        JOptionPane.WARNING_MESSAGE);
+            }
+        } while (units <= 0);
 
         if (tipoMaterialAudiovisual.equals(Material.CD)) {
-            String artista = JOptionPane.showInputDialog(
-                    "Ingrese el artista del CD: ");
-            String nCanciones = JOptionPane.showInputDialog(
-                    "Ingrese el numero de canciones del CD: ");
+            String artista;
+            String nCanciones;
+
+            do {
+                artista = JOptionPane.showInputDialog(
+                        "Ingrese el artista del CD: ");
+            } while (null == artista || artista.equals(""));
+
+            // Validar numero de canciones
+            int songs = -1;
+            do {
+
+                nCanciones = JOptionPane.showInputDialog(
+                        "Ingrese el numero de canciones del CD: ");
+
+                try {
+                    songs = Integer.parseInt(nCanciones);
+
+                    if (songs <= 0) {
+                        JOptionPane.showMessageDialog(null,
+                                "Favor Ingresar Solo Números positivos! ",
+                                "Formato Numero",
+                                JOptionPane.WARNING_MESSAGE);
+                    }
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null,
+                            "Favor Ingresar Solo Números. ",
+                            "Formato Numero",
+                            JOptionPane.WARNING_MESSAGE);
+                }
+            } while (songs <= 0);
 
             AudioCD cd = new AudioCD();
             cd.setTitulo(titulo);
@@ -236,20 +379,23 @@ public class Utils {
             cd.setGenero(genero);
             cd.setDuracion(Integer.parseInt(duracion));
             cd.setNumeroCanciones(Integer.parseInt(nCanciones));
-            cd.setUnidadesDisponibles(Integer.parseInt(uDiponibles));
+            cd.setUnidadesDisponibles(Integer.parseInt(uDisponibles));
 
             Mediateca.agregarAudioCD(cd);
             return (T) cd;
         } else {
-            String director = JOptionPane.showInputDialog(
-                    "Ingrese el director del DVD: ");
+            String director;
+            do {
+                director = JOptionPane.showInputDialog(
+                        "Ingrese el director del DVD: ");
+            } while (null == director || director.equals(""));
 
             DVD dvd = new DVD();
             dvd.setTitulo(titulo);
             dvd.setDirector(director);
             dvd.setDuracion(Integer.parseInt(duracion));
             dvd.setGenero(genero);
-            dvd.setUnidadesDisponibles(Integer.parseInt(uDiponibles));
+            dvd.setUnidadesDisponibles(Integer.parseInt(uDisponibles));
 
             Mediateca.agregarDVD(dvd);
             return (T) dvd;
@@ -273,16 +419,27 @@ public class Utils {
         LOGGER.info(tipoMaterial);
 
         if (tipoMaterial.equals(Material.ESCRITO.name())) {
+
             String materialEscrito = Utils.buildGUI(
                     Arrays.asList(Material.values()).subList(2, 4),
                     "Que tipo de material escrito desea modificar: ");
 
+            // Regresar a menu principal si usuario presiona X
+            if (materialEscrito.equals(OpcionMenu.CERRAR.name())) {
+                return;
+            }
+
             LOGGER.info(materialEscrito);
 
             if (materialEscrito.equals(Material.LIBRO.name())) {
-                String codLibro = JOptionPane.showInputDialog(
-                        "Ingrese el codigo del Libro: ");
+                String codLibro;
+                do {
+                    codLibro = JOptionPane.showInputDialog(
+                            "Ingrese el codigo del Libro: ");
+                } while (null == codLibro || codLibro.equals(""));
+
                 Libro libroEncontrado = Mediateca.buscarMaterialEscrito(codLibro);
+
                 if (null != libroEncontrado) {
                     JOptionPane.showMessageDialog(null, "Libro Encontrado! "
                             + "\nPor Favor Modifique los valores deseados.");

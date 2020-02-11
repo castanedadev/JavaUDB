@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<Mediateca nombre="Pinacoteca UDB" ultimaRevista="2" ultimoCD="3" ultimoDVD="2" ultimoLibro="2">
+<Mediateca nombre="Pinacoteca UDB" ultimaRevista="3" ultimoCD="3" ultimoDVD="2" ultimoLibro="3">
     <AudioCDs>
         <AudioCD>
             <codigo>CDA00001</codigo>
@@ -38,7 +38,7 @@
             <genero>Epic</genero>
             <director>Brian De Palma</director>
         </DVD>
-         <DVD>
+        <DVD>
             <codigo>DVD00002</codigo>
             <titulo>Lord of the Flies</titulo>
             <unidadesDisponibles>1</unidadesDisponibles>
@@ -68,6 +68,16 @@
             <isbn>GFA-523-TXi</isbn>
             <numeroPaginas>1500</numeroPaginas>
         </Libro>
+        <Libro>
+            <codigo>LIB00003</codigo>
+            <titulo>Libro Test</titulo>
+            <unidadesDisponibles>10</unidadesDisponibles>
+            <editorial>Editorial 1</editorial>
+            <fechaPublicacion>2017-01-01T15:34:21.911-06:00</fechaPublicacion>
+            <autor>Rick C</autor>
+            <isbn>1234567890123</isbn>
+            <numeroPaginas>128</numeroPaginas>
+        </Libro>
     </Libros>
     <Revistas>
         <Revista>
@@ -80,11 +90,19 @@
         </Revista>
         <Revista>
             <codigo>REV00002</codigo>
-            <titulo>Mag 25</titulo>
-            <unidadesDisponibles>6</unidadesDisponibles>
-            <editorial>ESE v2</editorial>
-            <fechaPublicacion>2001-01-01T15:47:07.892-06:00</fechaPublicacion>
+            <titulo>Mag 25 Actualizada</titulo>
+            <unidadesDisponibles>23</unidadesDisponibles>
+            <editorial>Editorial 2</editorial>
+            <fechaPublicacion>2020-12-02T15:19:27.990-06:00</fechaPublicacion>
             <periodicidad>6</periodicidad>
+        </Revista>
+        <Revista>
+            <codigo>REV00003</codigo>
+            <titulo>Revista Prueba </titulo>
+            <unidadesDisponibles>0</unidadesDisponibles>
+            <editorial>Editorial 1</editorial>
+            <fechaPublicacion>2020-03-11T15:35:09.852-06:00</fechaPublicacion>
+            <periodicidad>2</periodicidad>
         </Revista>
     </Revistas>
 </Mediateca>
