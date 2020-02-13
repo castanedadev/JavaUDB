@@ -6,7 +6,6 @@
 package sv.edu.udb.ejercicio2;
 
 import java.sql.SQLException;
-import sv.edu.udb.ejercicio2.entities.Developer;
 
 /**
  *
@@ -15,7 +14,6 @@ import sv.edu.udb.ejercicio2.entities.Developer;
 public class MisProgramitasSV {
 
     public static void main(String... args) throws SQLException {
-        Developer dev = new Developer();
-        System.out.println(dev.agregarEmpleado());
+        Utils.crearMenuPrincipal();
     }
 }

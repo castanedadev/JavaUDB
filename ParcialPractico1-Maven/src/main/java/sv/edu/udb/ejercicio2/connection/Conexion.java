@@ -41,7 +41,7 @@ public abstract class Conexion {
         }
     }
 
-    public ResultSet getResultSet() {
+    public static ResultSet getResultSet() {
         return resultset;
     }
 
@@ -54,8 +54,8 @@ public abstract class Conexion {
         }
     }
 
-    public static void executeUpdate(String sql) throws SQLException {
-        Conexion.statement.executeUpdate(sql);
+    public static int executeUpdate(String sql) throws SQLException {
+        return Conexion.statement.executeUpdate(sql);
     }
 
     public static void cerrarConexion() throws SQLException {
