@@ -82,3 +82,20 @@ INSERT INTO `empleados` (`Id`, `Nombres`, `Apellidos`, `Dui`, `Nit`, `SalarioBas
 (1, 'Ricardo Jose', 'Castaneda Hernandez', '04610484-2', '0501-060492-101-1', '3500', 'TIPO_PROGRAMADOR'),
 (2, 'Simon Alberto', 'Parras Albiol', '00172855-2', '1023-051077-101-2', '900', 'TIPO_OTROS');
 COMMIT;
+
+
+--
+-- Table structure for table `historico`
+--
+
+DROP TABLE IF EXISTS `historico`;
+CREATE TABLE IF NOT EXISTS `historico` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `EmpleadoId` varchar(100) DEFAULT NULL,
+  `SueldoLiquido` decimal(15,2) NOT NULL,
+  `Descuentos` decimal(15,2) NOT NULL,
+  `Fecha` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`Id`),
+  KEY `EmpleadoId` (`EmpleadoId`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+COMMIT;
