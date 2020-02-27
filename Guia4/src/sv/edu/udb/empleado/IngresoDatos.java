@@ -5,7 +5,7 @@
  */
 package sv.edu.udb.empleado;
 
-import com.mysql.jdbc.Statement;
+import java.sql.Statement;
 import static java.lang.Boolean.TRUE;
 import java.sql.Connection;
 import java.sql.DriverManager;

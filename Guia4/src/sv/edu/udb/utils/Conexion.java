@@ -24,14 +24,16 @@ public class Conexion {
 
     public Conexion() throws SQLException {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            //Loading class `com.mysql.jdbc.Driver'. This is deprecated. The new driver class is `com.mysql.cj.jdbc.Driver'. 
+            //The driver is automatically registered via the SPI and manual loading of the driver class is generally unnecessary.
+            //Class.forName("com.mysql.jdbc.Driver");
             conexion = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3308/Guia4?characterEncoding=latin1&useConfigs=maxPerformance", "root", "");
+                    "jdbc:mysql://localhost:3306/Guia4?characterEncoding=latin1&useConfigs=maxPerformance", "root", "This#is#4#MySQL");
             s = conexion.createStatement();
 
             System.out.println("Conexion Exitosa");
 
-        } catch (ClassNotFoundException e1) {
+        } catch (Exception e1) {
             System.out.println("ERROR:No encuentro el driver de la BD:"
                     + e1.getMessage());
         }

@@ -5,7 +5,7 @@
  */
 package sv.edu.udb.empleado;
 
-import com.mysql.jdbc.Statement;
+import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -19,9 +19,9 @@ public class VerEmpleado {
 
     public VerEmpleado() {
         try {
-            Class.forName("com.mysql.jdbc.Driver");
+            // Class.forName("com.mysql.jdbc.Driver"); This seems to be deprecated
             Connection conexion = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3308/Guia4?characterEncoding=latin1&useConfigs=maxPerformance", "root", "");
+                    "jdbc:mysql://localhost:3306/guia4?characterEncoding=latin1&useConfigs=maxPerformance", "root", "This#is#4#MySQL");
 
             Statement s = (Statement) conexion.createStatement();
             ResultSet rs = s.executeQuery("select * from empleados");
@@ -33,8 +33,6 @@ public class VerEmpleado {
                 System.out.println("==================================");
             }
             conexion.close();
-        } catch (ClassNotFoundException el) {
-            System.out.println("Fallo encontrando el driver!");
         } catch (SQLException sql) {
             System.out.println("Fallo en SQL!");
         }
