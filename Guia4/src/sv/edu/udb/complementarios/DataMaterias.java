@@ -40,6 +40,7 @@ public class DataMaterias extends javax.swing.JInternalFrame {
         jTableMaterias = new javax.swing.JTable();
         lblTablaMaterias = new javax.swing.JLabel();
 
+        setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setResizable(true);

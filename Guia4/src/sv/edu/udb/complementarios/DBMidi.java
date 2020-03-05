@@ -29,58 +29,63 @@ public class DBMidi extends javax.swing.JFrame {
 
         desktopPane = new javax.swing.JDesktopPane();
         menuBar = new javax.swing.JMenuBar();
-        fileMenu = new javax.swing.JMenu();
-        openMenuItem = new javax.swing.JMenuItem();
-        saveMenuItem = new javax.swing.JMenuItem();
-        saveAsMenuItem = new javax.swing.JMenuItem();
-        editMenu = new javax.swing.JMenu();
-        cutMenuItem = new javax.swing.JMenuItem();
+        tablasMenu = new javax.swing.JMenu();
+        alumnosMenuItem = new javax.swing.JMenuItem();
+        materiaMenuItem = new javax.swing.JMenuItem();
+        joinTableMenuItem = new javax.swing.JMenuItem();
+        consultasMenu = new javax.swing.JMenu();
+        selectMenuItem = new javax.swing.JMenuItem();
         helpMenu = new javax.swing.JMenu();
         contentMenuItem = new javax.swing.JMenuItem();
         aboutMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        fileMenu.setMnemonic('f');
-        fileMenu.setText("Tablas");
+        tablasMenu.setMnemonic('f');
+        tablasMenu.setText("Tablas");
 
-        openMenuItem.setMnemonic('o');
-        openMenuItem.setText("Alumnos");
-        openMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        alumnosMenuItem.setMnemonic('o');
+        alumnosMenuItem.setText("Alumnos");
+        alumnosMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                openMenuItemActionPerformed(evt);
+                alumnosMenuItemActionPerformed(evt);
             }
         });
-        fileMenu.add(openMenuItem);
+        tablasMenu.add(alumnosMenuItem);
 
-        saveMenuItem.setMnemonic('s');
-        saveMenuItem.setText("Materia");
-        saveMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        materiaMenuItem.setMnemonic('s');
+        materiaMenuItem.setText("Materia");
+        materiaMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveMenuItemActionPerformed(evt);
+                materiaMenuItemActionPerformed(evt);
             }
         });
-        fileMenu.add(saveMenuItem);
+        tablasMenu.add(materiaMenuItem);
 
-        saveAsMenuItem.setMnemonic('a');
-        saveAsMenuItem.setText("Join Table");
-        saveAsMenuItem.addActionListener(new java.awt.event.ActionListener() {
+        joinTableMenuItem.setMnemonic('a');
+        joinTableMenuItem.setText("Join Table");
+        joinTableMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                saveAsMenuItemActionPerformed(evt);
+                joinTableMenuItemActionPerformed(evt);
             }
         });
-        fileMenu.add(saveAsMenuItem);
+        tablasMenu.add(joinTableMenuItem);
 
-        menuBar.add(fileMenu);
+        menuBar.add(tablasMenu);
 
-        editMenu.setMnemonic('e');
-        editMenu.setText("Consultas");
+        consultasMenu.setMnemonic('e');
+        consultasMenu.setText("Consultas");
 
-        cutMenuItem.setMnemonic('t');
-        cutMenuItem.setText("Select");
-        editMenu.add(cutMenuItem);
+        selectMenuItem.setMnemonic('t');
+        selectMenuItem.setText("Select");
+        selectMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectMenuItemActionPerformed(evt);
+            }
+        });
+        consultasMenu.add(selectMenuItem);
 
-        menuBar.add(editMenu);
+        menuBar.add(consultasMenu);
 
         helpMenu.setMnemonic('h');
         helpMenu.setText("Help");
@@ -101,33 +106,40 @@ public class DBMidi extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
+            .addComponent(desktopPane, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItemActionPerformed
+    private void alumnosMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_alumnosMenuItemActionPerformed
         DataAlumnos alumnos = new DataAlumnos();
         desktopPane.add(alumnos);
         alumnos.show();
-    }//GEN-LAST:event_openMenuItemActionPerformed
+    }//GEN-LAST:event_alumnosMenuItemActionPerformed
 
-    private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
+    private void materiaMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materiaMenuItemActionPerformed
         DataMaterias materias = new DataMaterias();
         desktopPane.add(materias);
         materias.show();
-    }//GEN-LAST:event_saveMenuItemActionPerformed
+    }//GEN-LAST:event_materiaMenuItemActionPerformed
 
-    private void saveAsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveAsMenuItemActionPerformed
+    private void joinTableMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_joinTableMenuItemActionPerformed
         DataJoinTable jtable = new DataJoinTable();
         desktopPane.add(jtable);
         jtable.show();
-    }//GEN-LAST:event_saveAsMenuItemActionPerformed
+    }//GEN-LAST:event_joinTableMenuItemActionPerformed
+
+    private void selectMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectMenuItemActionPerformed
+        // TODO add your handling code here:
+        ConsultaSelectInternalFrame select = new ConsultaSelectInternalFrame();
+        desktopPane.add(select);
+        select.show();
+    }//GEN-LAST:event_selectMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -166,16 +178,16 @@ public class DBMidi extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem aboutMenuItem;
+    private javax.swing.JMenuItem alumnosMenuItem;
+    private javax.swing.JMenu consultasMenu;
     private javax.swing.JMenuItem contentMenuItem;
-    private javax.swing.JMenuItem cutMenuItem;
     private javax.swing.JDesktopPane desktopPane;
-    private javax.swing.JMenu editMenu;
-    private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
+    private javax.swing.JMenuItem joinTableMenuItem;
+    private javax.swing.JMenuItem materiaMenuItem;
     private javax.swing.JMenuBar menuBar;
-    private javax.swing.JMenuItem openMenuItem;
-    private javax.swing.JMenuItem saveAsMenuItem;
-    private javax.swing.JMenuItem saveMenuItem;
+    private javax.swing.JMenuItem selectMenuItem;
+    private javax.swing.JMenu tablasMenu;
     // End of variables declaration//GEN-END:variables
 
 }

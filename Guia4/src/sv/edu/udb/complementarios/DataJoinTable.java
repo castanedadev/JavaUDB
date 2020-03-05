@@ -5,11 +5,20 @@
  */
 package sv.edu.udb.complementarios;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+import sv.edu.udb.utils.Conexion;
+
 /**
  *
  * @author Rick
  */
 public class DataJoinTable extends javax.swing.JInternalFrame {
+
+    DefaultTableModel dftm;
 
     /**
      * Creates new form DataJoinTable
@@ -27,21 +36,114 @@ public class DataJoinTable extends javax.swing.JInternalFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableAlumno_Materia = new javax.swing.JTable();
+        lblTablaAlumno_Materia = new javax.swing.JLabel();
+
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+        setTitle("UDB 2020");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
+            }
+        });
+
+        jTableAlumno_Materia.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(jTableAlumno_Materia);
+
+        lblTablaAlumno_Materia.setText("Tabla - Alumno Materia");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 453, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(195, 195, 195)
+                        .addComponent(lblTablaAlumno_Materia)))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 274, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(41, Short.MAX_VALUE)
+                .addComponent(lblTablaAlumno_Materia)
+                .addGap(38, 38, 38)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 165, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(42, 42, 42))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+        Conexion con = null;
+        try {
+            con = new Conexion();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataAlumnos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        String sql = "SELECT * FROM alumno_materia";
+
+        con.setRs(sql);
+        ResultSet rs = con.getRs();
+        try {
+
+            Object[][] datos = new Object[10][2];
+            while (rs.next()) {
+                datos[rs.getRow() - 1][0] = rs.getInt(1);
+                datos[rs.getRow() - 1][1] = rs.getInt(2);
+
+            }
+
+            String[] columnas = {"Cod_Alumno", "Cod_Materia"};
+
+            dftm = new DefaultTableModel(datos, columnas);
+            jTableAlumno_Materia.setModel(dftm);
+        } catch (SQLException ex) {
+            Logger.getLogger(DataAlumnos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            con.cerrarConexion();
+        } catch (SQLException ex) {
+            Logger.getLogger(DataAlumnos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_formInternalFrameOpened
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTableAlumno_Materia;
+    private javax.swing.JLabel lblTablaAlumno_Materia;
     // End of variables declaration//GEN-END:variables
 }

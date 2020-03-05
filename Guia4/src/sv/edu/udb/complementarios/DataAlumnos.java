@@ -42,6 +42,11 @@ public class DataAlumnos extends javax.swing.JInternalFrame {
         jTableAlumnos = new javax.swing.JTable();
         lblTablaAlumnos = new javax.swing.JLabel();
 
+        setClosable(true);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+        setTitle("UDB 2020");
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
@@ -71,6 +76,11 @@ public class DataAlumnos extends javax.swing.JInternalFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        jTableAlumnos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTableAlumnosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTableAlumnos);
 
         lblTablaAlumnos.setText("Tabla - Alumnos");
@@ -139,6 +149,36 @@ public class DataAlumnos extends javax.swing.JInternalFrame {
             Logger.getLogger(DataAlumnos.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_formInternalFrameOpened
+
+    private void jTableAlumnosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTableAlumnosMouseClicked
+        int rowNumber = jTableAlumnos.getSelectedRow();
+        String idAlumno = jTableAlumnos.getValueAt(rowNumber, 0).toString();
+
+        Conexion con = null;
+        try {
+            con = new Conexion();
+            String sql = "DELETE FROM Alumnos WHERE Cod_alumno = " + idAlumno + " ;";
+            con.setRs(sql);
+            ResultSet rs = con.getRs();
+
+            Object[][] datos = new Object[10][5];
+            while (rs.next()) {
+                datos[rs.getRow() - 1][0] = rs.getInt(1);
+                datos[rs.getRow() - 1][1] = rs.getInt(2);
+                datos[rs.getRow() - 1][2] = rs.getString(3);
+                datos[rs.getRow() - 1][3] = rs.getString(4);
+
+            }
+
+            String[] columnas = {"Cod_Alumno", "Cod_Materia", "Nombre", "Descripcion"};
+
+            dftm = new DefaultTableModel(datos, columnas);
+            //jTable1.setModel(dftm);
+        } catch (SQLException ex) {
+            Logger.getLogger(DataAlumnos.class.getName()).log(Level.SEVERE, null, ex);
+            return;
+        }
+    }//GEN-LAST:event_jTableAlumnosMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
