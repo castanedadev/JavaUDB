@@ -42,7 +42,6 @@ public class servlet_ingresar_empleado extends HttpServlet {
         String apellido = request.getParameter("apellido");
         String telefono = request.getParameter("telefono");
 
-        System.out.println("HERE");
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conexion = DriverManager.getConnection(

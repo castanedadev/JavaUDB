@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package sv.edu.udb.servlet;
+package sv.edu.udb;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -26,7 +26,7 @@ public class Conexion {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             conexion = DriverManager.getConnection(
-                    "jdbc:mysql://localhost:3306/guia7_java?characterEncoding=latin1&useConfigs=maxPerformance", "root", "This#is#4#MySQL");
+                    "jdbc:mysql://localhost:3306/guia8?characterEncoding=latin1&useConfigs=maxPerformance", "root", "This#is#4#MySQL");
             s = conexion.createStatement();
 
             System.out.println("Conexion Exitosa");
