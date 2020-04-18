@@ -12,6 +12,10 @@
         <servlet-name>GeneraSession</servlet-name>
         <servlet-class>sv.edu.udb.servlet.GeneraSession</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>servlet_ingresar_jefe_sistemas</servlet-name>
+        <servlet-class>sv.edu.udb.complementarios.servlet_ingresar_jefe_sistemas</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>servlet_hello</servlet-name>
         <url-pattern>/servlet_hello</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>GeneraSession</servlet-name>
         <url-pattern>/GeneraSession</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>servlet_ingresar_jefe_sistemas</servlet-name>
+        <url-pattern>/servlet_ingresar_jefe_sistemas</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

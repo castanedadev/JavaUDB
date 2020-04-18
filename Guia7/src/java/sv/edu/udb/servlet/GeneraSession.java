@@ -7,10 +7,13 @@ package sv.edu.udb.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -32,16 +35,30 @@ public class GeneraSession extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet GeneraSession</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet GeneraSession at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            String usuario = request.getParameter("usuario");
+            String password = request.getParameter("password");
+            try {
+                Conexion con = new Conexion();
+                //buscará una coincidencia (count usuario), si es correcto
+                //podrá loguearse
+                con.setRs("select count(usuario),nombres from usuarios"
+                        + " where usuario='" + usuario + "' and "
+                        + "password='" + password + "' group by nombres;");
+                ResultSet rs = con.getResultSet();
+                rs.next();
+                if (rs.getInt(1) == 1) { //solo una coincidencia es permitida
+                    HttpSession session_actual = request.getSession(true);
+                    session_actual.setAttribute("USER", usuario);
+                    session_actual.setAttribute("NAME", rs.getString(2));
+                    response.sendRedirect("principal.jsp");
+                } else {
+                    response.sendRedirect("login.html");
+                }
+                rs.close();
+                con.cerrarConexion();
+            } catch (SQLException e) {
+                out.print(e.getMessage());
+            }
         } finally {
             out.close();
         }

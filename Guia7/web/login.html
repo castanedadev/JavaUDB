@@ -6,17 +6,26 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <title>Guia 7 :: Login</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" type="text/css" href="web_style.css">
     </head>
-    <body>
-        <h1>Login!!!</h1>
-        <form action="GeneraSession" method="POST">
-            Ingrese su Usuario: <input type="text" name="usuario" value="" size="45" /><br>
-            Ingrese su Password: <input type="password" name="password" value=""
-                                        size="45"/><br>
-            <input type="submit" value="Enviar" name="enviar" />
+    <body class="text-center">
+
+        <form action="GeneraSession" method="POST" class="form-signin">
+            <h2>Iniciar Sesión</h2>
+            <br>
+            <label for="username" class="sr-only">Ingrese su Usuario:</label> 
+            <input id="username" type="text" name="usuario" value="" size="45" class="form-control" /><br>
+            <label class="sr-only">Ingrese su Password: </label > 
+            <input type="password" name="password" value="" size="45" class="form-control"/><br>
+            <input type="submit" value="Enviar" name="enviar" class="btn btn-lg btn-primary btn-block"/>
         </form>
+
+
     </body>
 </html>
