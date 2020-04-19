@@ -7,7 +7,12 @@
     </h:head>
     <h:body>
         <h:form>
-            <h:outputLabel for="usuario" value="Ingrese su usuario: "/>
+            <h:commandButton action="#{language.changelanguage('es')}" value="Spanish" image="es2.jpg"/>
+            <h:outputText value="&#160" />
+            <h:commandButton action="#{language.changelanguage('en')}" value="English" image="en2.jpg"/>
+        </h:form>
+        <h:form>
+            <h:outputLabel for="usuario" value="${bundle.LoginUsuario}"/>
             <h:inputText id="usuario" value="#{indexManagedBean.user}" required="true" requiredMessage="Usuario Requerido"/>
             <h:message for="usuario" errorStyle="color:red"/>
             <br/>

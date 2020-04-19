@@ -5,8 +5,10 @@
  */
 package beans;
 
+import java.util.ResourceBundle;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import sv.edu.udb.utils.JSFUtils;
 
 /**
  *
@@ -44,9 +46,11 @@ public class IndexManagedBean {
     }
 
     public String validar() {
-        if (this.user.equals("Rick") && this.pswd.equals("root")) {
+        if (this.user.equals("Rick") && this.pswd.equals("root")) {            
+            JSFUtils.addSucessMessage(ResourceBundle.getBundle("/Bundle").getString("LoginCorrecto"));
             return "ir";
         } else {
+             JSFUtils.addSucessMessage(ResourceBundle.getBundle("/Bundle").getString("LoginError"));
             return ""; // null 
         }
     }
