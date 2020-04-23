@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Context antiJARLocking="true" path="/Guia9_MVC"/>
+<Context path="/Guia9_MVC">
+    <Resource name="jdbc/mysql" auth="Container" type="javax.sql.DataSource"
+               maxActive="20" maxIdle="10" maxWait="5000"
+               username="root" password="This#is#4#MySQL" driverClassName="com.mysql.jdbc.Driver"
+               url="jdbc:mysql://localhost:3306/inventario_libros"/>
+</Context>
+
