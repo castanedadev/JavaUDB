@@ -25,7 +25,7 @@
         HttpSession sesionOk = request.getSession();
         sesionOk.setAttribute("usuario", usuario);
 %>
-<jsp:forwardpage="menu.jsp" />
+<jsp:forward page="menu.jsp" />
 <%
 } else {
 %>
